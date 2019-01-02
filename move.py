@@ -3,9 +3,14 @@ class Move():
              'coup', 'steal']
     
     def __init__(self, move, player):
+        assert move in self.moves, "Not a valid move"
         self.move = move
         self.player = player
-    
-    def __print__(self):
-        print(self.player, ':', self.move)
+        if move == 'income' or move == 'coup':
+            self.challengeable = False
+        else: 
+            self.challengeable = True
+            
+    def print (self):
+        print(self.player.name, ':', self.move)
         
