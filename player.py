@@ -1,13 +1,15 @@
 from move import Move
 
 import random
-
+move_string = 'Income: 0, Foreign Aid: 1, Duke: 2, Ambassador: 3, Assassinate: 4, Coup: 5, Steal: 6'
 class Player():
     moves = ['income', 'foreign aid', 'duke', 'ambassador', 'assassinate',
              'coup', 'steal']
-    def __init__(self, hand, name):
+    def __init__(self, hand, num, name):
         self.name = name
+        self.num = num
         self.hand = hand
+        self.revealed = []
         self.influence = 2
         self.coins = 2
         
@@ -26,16 +28,17 @@ class Player():
     def turn(self, moves, human=False):
         move = 0
         if human:
-            while True:
+            valid_move = False
+            while not valid_move:
                 try:
                     print('Please select your next move:')
-                    print('Income: 0')
+                    print(move_string)
                     move = int(input())
-                    break
+                    valid_move = self.valid_move(move)
                 except ValueError:
                     print('Enter a valid move number')
-            assert move == 0
-        move = Move(self.moves[move], self)
+            # assert move == 0
+        move = Move(self.moves[move], self.num)
         return move
         
     def challenge(self, move):
@@ -43,5 +46,18 @@ class Player():
     
     def reveal_challenge(self, move):
         pass
+
+    def reveal(self, move):
+        pass
+
+    def valid_move(self, move):
+        if move < 0 or move > 6:
+            return False
+        elif self.moves[move] == 'coup' and self.coins < 7:
+            return False
+        elif self.moves[move] == 'assassinate' and self.coins < 3:
+            return False
+        else:
+            return True
 
             

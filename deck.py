@@ -20,7 +20,12 @@ class Deck:
             hands.append(hand)
         
         return hands
-        
+
+    def swap_card(self, card):
+        self.deck.append(card)
+        shuffle(self.deck)
+        return self.deck.pop(-1)
+
     def get_ambassador(self):
         cards = [self.deck.pop(-1), self.deck.pop(-1)]
         self.ambassador = True

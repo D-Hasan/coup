@@ -1,8 +1,7 @@
 from coup import CoupGame
 
 def run_game(game):
-    for i in range(10):
-        game.next_turn()
+    game.play_game()
 
 
 def main():
